@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ticket</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <title>Ticket Manager</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/index}">Ticket Manager</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/index}" >View</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/page/add}" >Add</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <div class="container">
+        <div class="p-5 text-center">
+            <h1>List Tickets</h1>
+        </div>
+        <form class="d-flex my-5" method="GET" th:action="@{/search}">
+            <input class="form-control me-2" type="text" id="s" name="s" placeholder="Search" aria-label="Search" autofocus>
+            <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+
+        <table class="table table-striped">
+          <thead>
+            <tr class="table-dark">
+                <th scope="col">ID</th>
+                <th scope="col">Number</th>
+                <th scope="col">Description</th>
+                <th scope="col">Date</th>
+                <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="ticket: ${tickets}">
+                <td scope="row" th:text="${ticket.id}"></td>
+                <td th:text="${ticket.ticketNumber}"></td>
+                <td th:text="${ticket.ticketDescription}"></td>
+                <td th:text="${ticket.createdDate}"></td>
+                <td>
+                    <a type="button" class="btn btn-warning" th:href="@{/page/edit/{id}(id=${ticket.id})}">Edit</a>
+                    <a type="button" class="btn btn-info" th:href="@{/page/view/{id}(id=${ticket.id})}">View</a>
+                    <a type="button" class="btn btn-danger" th:href="@{/page/delete/{id}(id=${ticket.id})}">Delete</a>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
